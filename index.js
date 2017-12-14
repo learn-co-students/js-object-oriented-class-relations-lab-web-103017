@@ -62,14 +62,14 @@ class Trip {
   }
 
   passenger() {
-    return store.passengers.filter(function (passenger) {
+    return store.passengers.find(function (passenger) {
       return passenger.id === this.passengerId
-    }.bind(this))[0]
+    }.bind(this))
   }
 
   driver() {
-    return store.drivers.filter(function (driver) {
+    return store.drivers.find(function (driver) {
       return driver.id === this.driverId
-    }.bind(this))[0]
+    }.bind(this))
   }
 }
