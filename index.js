@@ -10,14 +10,11 @@ class Driver {
     store.drivers.push(this);
   }
 
-  trips() {
-    return store.trips.filter(trip => return trip.driverId === this.id);
+  trips() { // returns all this trips a driver has taken
+    return store.trips.filter(trip => trip.driverId === this.id);
   }
-
-  passengers(){
-    return this.trips().map(trip => {
-      return trip.passenger();
-    });
+  passengers() {
+    return this.trips().map(trip => trip.passenger());
   }
 }
 
@@ -28,33 +25,31 @@ class Passenger {
     this.id = ++passengerId;
     store.passengers.push(this);
   }
-
-  trips() {
+  trips(){ // returns all this trips a passenger has taken
     return store.trips.filter(trip => trip.passengerId === this.id);
   }
-
-  drivers() {
+  drivers(){
     return this.trips().map(trip => trip.driver());
   }
 }
 
 class Trip {
-  constructor(passenger, driver) {
+  constructor(driver, passenger) {
     this.id = ++tripId;
-
     if(driver && passenger) {
       this.passengerId = passenger.id;
-      this.driverId = driver.id;
+      this.driverId = driver.id;  
     }
-  // store.trips.push(this);
-  store['trips'].push(this);
+    store.trips.push(this);
+    // store['trips'].push(this);
   }
-
-  driver() {
-    return store.drivers.find(driver => this.driverId === driver.id);
+  driver() { // returns the driver associated with the trips
+    return store.drivers.find(driver => driver.id === this.driverId);
   }
   passenger() {
-    return store.passengers.find(passenger => this.passengerId === passenger.id);
+    return store.passengers.find(passenger => passenger.id === this.passengerId);
   }
-
 }
+// bob = new Driver ("bob")
+// sally = new Passenger ("sally")
+// taxi = new Trip (bob, sally)
